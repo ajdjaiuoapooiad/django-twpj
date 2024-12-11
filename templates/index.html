@@ -10,18 +10,7 @@
     <h2>Index Page</h2>
 
     <div>
-        <form  method="POST" enctype="multipart/form-data">
-            {% csrf_token %}
-            <div>   
-                <textarea  id="post-title" placeholder="What's your mind? {{request.user|title}}">{{form.title}}</textarea>
-            </div>
-            <div>
-                {{form.images}}
-            </div>
-
-            {{form.visibility}}
-            <button type="submit">Submit</button>
-        </form>
+        
     </div>
 
 
@@ -31,15 +20,17 @@
         <div>
             <div>
                 <p>{{p.user.username}}</p>
-                <a href="{% url 'detail' p.slug %}">
+                <a href="{% url 'detail' p.id %}">
                     <p>{{p.title}}</p>
                 </a>
             </div>
             <div>
+                {% if p.images %}
                 <img height="300px" width="300px" src="{{p.images.url}}" alt="">
+                {% endif %}
             </div>
 
-            <a href="{% url 'delete-post' p.slug %}">delete</a>
+            <a href="{% url 'delete-post' p.id %}">delete</a>
         </div>
         {% endfor %}
     </div>

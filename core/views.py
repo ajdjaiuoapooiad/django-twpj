@@ -5,21 +5,21 @@ from core.models import Post
 
 
 def index(request):
-    posts = Post.objects.filter(active=True,visibility='Everyone')
+    posts = Post.objects.filter(visibility='Everyone')
     context = {
         'posts': posts,
     }
     return render(request,'index.html',context)
 
-def detail(request,slug):
-    post = Post.objects.get(active=True,visibility='Everyone',slug=slug)
+def detail(request,id):
+    post = Post.objects.get(visibility='Everyone',id=id)
     context = {
         'p': post,
     }
     return render(request,'detail.html',context)
 
-def delete_post(request,slug):
-    post = Post.objects.get(active=True,visibility='Everyone',slug=slug)
+def delete_post(request,id):
+    post = Post.objects.get(visibility='Everyone',id=id)
     post.delete()
     return redirect('index')
 
