@@ -14,7 +14,9 @@
         <div>
             <div>
                 <p>{{p.user.username}}</p>
-                <p>{{p.title}}</p>
+                <a href="{% url 'detail' p.slug %}">
+                    <p>{{p.title}}</p>
+                </a>
             </div>
             <div>
                 <img height="300px" width="300px" src="{{p.images.url}}" alt="">
