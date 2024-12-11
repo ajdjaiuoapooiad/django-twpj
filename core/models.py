@@ -14,14 +14,14 @@ VISIBILITY = (
 def user_directory_path(instance,filename):
     ext=filename.split('.')[-1]
     filename='%s.%s' % (instance.user.id,ext)
-    return 'user_{0}/{1}'.format(instance.user.id,ext)
+    return 'user_{0}/{1}'.format(instance.user.id,filename)
 
 class Post(models.Model):
     user=models.ForeignKey(User,on_delete=models.CASCADE)
     title=models.CharField(max_length=500,null=True,blank=True)
     images=models.ImageField(upload_to=user_directory_path,null=True,blank=True)
     video=models.FileField(upload_to=user_directory_path,null=True,blank=True)
-    visibility=models.CharField(max_length=20,choices=VISIBILITY,default='everyone')
+    visibility=models.CharField(max_length=20,choices=VISIBILITY,default='Everyone')
     active=models.BooleanField(default=True)
     
     slug=models.SlugField(unique=True)
@@ -32,6 +32,8 @@ class Post(models.Model):
     
     def __str__(self):
         return self.title
+    
+
     
         
     
