@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,6 +8,19 @@
 </head>
 <body>
     <h2>Index Page</h2>
-    <img height="500px" width="500px" src="static/images/pexels-philippe-alamazani-508356-29056350.jpg" alt="">
+    
+    <div>
+        {% for p in posts %}
+        <div>
+            <div>
+                <p>{{p.title}}</p>
+            </div>
+            <div>
+                <img height="300px" width="300px" src="{{p.images.url}}" alt="">
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
 </body>
 </html>
