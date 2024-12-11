@@ -6,8 +6,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Index Page</title>
 </head>
-<body>
+<body>                                              
     <h2>Index Page</h2>
+
+    <div>
+        <form  method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div>   
+                <textarea  id="post-title" placeholder="What's your mind? {{request.user|title}}">{{form.title}}</textarea>
+            </div>
+            <div>
+                {{form.images}}
+            </div>
+
+            {{form.visibility}}
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+
+
     
     <div>
         {% for p in posts %}
@@ -21,6 +38,8 @@
             <div>
                 <img height="300px" width="300px" src="{{p.images.url}}" alt="">
             </div>
+
+            <a href="{% url 'delete-post' p.slug %}">delete</a>
         </div>
         {% endfor %}
     </div>
