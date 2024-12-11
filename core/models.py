@@ -3,19 +3,32 @@ from django.db import models
 from shortuuid.django_fields import ShortUUIDField
 from userauths.models import User
 
+
+VISIBILITY = (
+    ('Only me','only me'),
+    ('Everyone','everyone'),
+)
+
+
+
+def user_directory_path(instance,filename):
+    ext=filename.split('.')[-1]
+    filename='%s.%s' % (instance.user.id,ext)
+    return 'user_{0}/{1}'.format(instance.user.id,ext)
+
 class Post(models.Model):
     user=models.ForeignKey(User,on_delete=models.CASCADE)
     title=models.CharField(max_length=500,null=True,blank=True)
-    images=models.ImageField(upload_to=)
-    video=models.FileField()
-    visibility=models.CharField()
-    active=models.BooleanField()
+    images=models.ImageField(upload_to=user_directory_path,null=True,blank=True)
+    video=models.FileField(upload_to=user_directory_path,null=True,blank=True)
+    visibility=models.CharField(max_length=20,choices=VISIBILITY,default='everyone')
+    active=models.BooleanField(default=True)
     
-    slug=models.SlugField()
-    likes=models.PositiveIntegerField()
-    views=models.PositiveIntegerField()
-    pid=ShortUUIDField()
-    date=models.DateTimeField()
+    slug=models.SlugField(unique=True)
+    likes=models.ManyToManyField(User,blank=True,related_name='likes')
+    views=models.PositiveIntegerField(default=0)
+    pid=ShortUUIDField(length=7,max_length=25,alphabet='abcdefghjklmnopwrstuvwxyz123')
+    date=models.DateTimeField(auto_now_add=True)
     
     def __str__(self):
         return self.title
