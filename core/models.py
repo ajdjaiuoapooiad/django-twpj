@@ -24,7 +24,7 @@ class Post(models.Model):
     visibility=models.CharField(max_length=20,choices=VISIBILITY,default='Everyone')
     active=models.BooleanField(default=True)
     
-    slug=models.SlugField(unique=True)
+    slug=models.SlugField(unique=True,null=True,blank=True)
     likes=models.ManyToManyField(User,blank=True,related_name='likes')
     views=models.PositiveIntegerField(default=0)
     pid=ShortUUIDField(length=7,max_length=25,alphabet='abcdefghjklmnopwrstuvwxyz123')
@@ -33,7 +33,13 @@ class Post(models.Model):
     def __str__(self):
         return self.title
     
-
+# class Gallery(models.Model):
+#     post=models.ForeignKey(Post,on_delete=models.CASCADE)
+#     image=models.ImageField(upload_to=user_directory_path,null=True,blank=True)
+    
+#     def __str__(self):
+#         return str(self.post)
+   
     
         
     
