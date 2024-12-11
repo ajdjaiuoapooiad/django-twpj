@@ -7,10 +7,10 @@
     <title>Index Page</title>
 </head>
 <body>
-    <h2>Index Page</h2>
+    <h2>Detail Page</h2>
     
     <div>
-        {% for p in posts %}
+        
         <div>
             <div>
                 <p>{{p.user.username}}</p>
@@ -20,7 +20,7 @@
                 <img height="300px" width="300px" src="{{p.images.url}}" alt="">
             </div>
         </div>
-        {% endfor %}
+    
     </div>
 
 </body>
